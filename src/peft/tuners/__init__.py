@@ -27,6 +27,7 @@ from .lily import LilyConfig, LilyModel
 from .ln_tuning import LNTuningConfig, LNTuningModel
 from .loha import LoHaConfig, LoHaModel
 from .lokr import LoKrConfig, LoKrModel
+from .cara import CaraConfig, CaraModel
 from .lora import (
     ArrowConfig,
     BdLoraConfig,
@@ -67,6 +68,7 @@ from .xlora import XLoraConfig, XLoraModel
 
 
 __all__ = [
+    "CaraConfig",
     "AdaLoraConfig",
     "AdaLoraModel",
     "AdaptionPromptConfig",

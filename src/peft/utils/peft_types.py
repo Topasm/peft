@@ -21,6 +21,7 @@ class PeftType(str, enum.Enum):
     Enum class for the different types of adapters in PEFT.
     """
 
+    CARA = "CARA"
     PROMPT_TUNING = "PROMPT_TUNING"
     MULTITASK_PROMPT_TUNING = "MULTITASK_PROMPT_TUNING"
     P_TUNING = "P_TUNING"
