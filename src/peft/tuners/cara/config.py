@@ -29,6 +29,14 @@ class CaraConfig(PeftConfig):
         default=None,
         metadata={"help": "List of module names or regex expression to replace with CaRA."}
     )
+    modules_to_save: Optional[list[str]] = field(
+        default=None,
+        metadata={
+            "help": "List of extra modules to be set as trainable and saved in the final checkpoint. "
+            "For example, in Sequence Classification or Token Classification tasks, "
+            "the final layer `classifier/score` are randomly initialized and as such need to be trainable and saved."
+        },
+    )
     
     def __post_init__(self):
         super().__post_init__()
