@@ -103,9 +103,12 @@ class CaraLinear(nn.Module, CaraLayer):
         
         if self.training:
             self.step_counter += 1
+            # Apply transparent noise sparsely: once every `interval` forward passes.
+            # interval=5 → noise on step 5,10,15,... (1 of 5 = 20%).
+            # Ablations confirmed sparse is better than dense (1-of-5 > 4-of-5 > no-noise on GLUE).
             if (self.step_counter % interval == 0) and (noise_alpha > 0.0):
                 R_rand = torch.randn(self.in_features, self.in_features, device=x.device, dtype=x.dtype)
-                R_skew = (R_rand - R_rand.transpose(0, 1)) / math.sqrt(2 * self.in_features) # 반대칭 만들기!
+                R_skew = (R_rand - R_rand.transpose(0, 1)) / math.sqrt(2 * self.in_features)
                 x_rot = x_rot + (noise_alpha * torch.matmul(x_rot, R_skew))
 
         out = self.base_layer(x_rot, *args, **kwargs)
