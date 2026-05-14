@@ -1,0 +1,26 @@
+# CaRA GLUE benchmark — exact versions verified on RTX 5090 / CUDA 12.8
+# PyTorch는 별도 index에서 설치 필요 (CUDA 12.8 build for sm_120 / RTX 50xx).
+# 아래 transformers/datasets/... 는 일반 PyPI에서 설치.
+
+# Core HF stack
+transformers==5.5.4
+datasets==4.8.4
+evaluate==0.4.6
+accelerate==1.13.0
+tokenizers>=0.22
+
+# Tokenizer / model dependencies
+sentencepiece==0.2.1
+protobuf
+
+# Data processing & metrics
+numpy>=2.0
+scipy>=1.15
+scikit-learn==1.8.0
+huggingface_hub
+safetensors
+tiktoken
+tqdm
+psutil
+packaging
+pyyaml

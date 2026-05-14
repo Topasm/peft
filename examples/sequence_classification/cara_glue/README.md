@@ -10,15 +10,22 @@ at `r=8` with CaRA noise defaults (`noise_alpha=0.01`, `noise_step_interval=5`).
 
 ## Setup
 
+**For a guided Korean walkthrough, see [`ENV_SETUP_KO.md`](./ENV_SETUP_KO.md).**
+
+Quick setup (RTX 50xx / CUDA 12.8 verified):
+
 ```bash
 # From the peft repo root
-pip install -e .
-pip install -r examples/sequence_classification/requirements.txt
-pip install "transformers>=4.41" datasets evaluate scikit-learn sentencepiece
+uv venv .venv --python 3.11
+uv pip install --python .venv/bin/python torch --index-url https://download.pytorch.org/whl/cu128
+uv pip install --python .venv/bin/python -r examples/sequence_classification/cara_glue/requirements.txt
+uv pip install --python .venv/bin/python -e .
 ```
 
-`microsoft/deberta-v3-base` requires `sentencepiece`. For bf16 (RTX 30xx/40xx/50xx)
-add `--bf16` to the sweep command; for older GPUs use `--fp16`.
+Important:
+- RTX 50xx (sm_120) requires the `cu128` PyTorch build (`+cu128`). The default `pip install torch` ships `cu124` which **does not run on RTX 5090**.
+- `microsoft/deberta-v3-base` requires `sentencepiece` (included in `requirements.txt`).
+- DeBERTaV3 has a known overflow with `bf16` attention masks — train in **fp32** (default). Do not pass `--bf16` / `--fp16`.
 
 ## Verify first (recommended)
 
